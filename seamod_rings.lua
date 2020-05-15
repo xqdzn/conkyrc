@@ -6,7 +6,7 @@
 --  Version : v0.1
 --  License : Distributed under the terms of GNU GPL version 2 or later
 --
---  This version is a modification of lunatico_rings.lua wich is modification of conky_orange.lua 
+--  This version is a modification of lunatico_rings.lua wich is modification of conky_orange.lua
 --
 --  conky_orange.lua:    http://gnome-look.org/content/show.php?content=137503&forumpage=0
 --  lunatico_rings.lua:  http://gnome-look.org/content/show.php?content=142884
@@ -20,7 +20,7 @@ require 'cairo'
 gauge = {
 {
     name='cpu',                    arg='cpu0',                  max_value=100,
-    x=70,                          y=160,
+    x=70,                          y=210,
     graph_radius=55,
     graph_thickness=10,
     graph_start_angle=180,
@@ -41,7 +41,7 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu1',                  max_value=100,
-    x=70,                          y=160,
+    x=70,                          y=210,
     graph_radius=40,
     graph_thickness=10,
     graph_start_angle=180,
@@ -62,7 +62,7 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu2',                  max_value=100,
-    x=70,                          y=160,
+    x=70,                          y=210,
     graph_radius=25,
     graph_thickness=10,
     graph_start_angle=180,
@@ -83,7 +83,7 @@ gauge = {
 },
 {
     name='cpu',                    arg='cpu3',                  max_value=100,
-    x=70,                          y=160,
+    x=70,                          y=210,
     graph_radius=10,
     graph_thickness=10,
     graph_start_angle=180,
@@ -103,8 +103,8 @@ gauge = {
     caption_fg_colour=0xFFFFFF,    caption_fg_alpha=0.3,
 },
 {
-    name='memperc',                arg='',                      max_value=100,
-    x=70,                          y=320,
+    name='memperc',                arg='mem',                      max_value=100,
+    x=70,                          y=375,
     graph_radius=54,
     graph_thickness=12,
     graph_start_angle=180,
@@ -125,7 +125,7 @@ gauge = {
 },
 {
     name='fs_used_perc',           arg='/',                     max_value=100,
-    x=70,                          y=470,
+    x=70,                          y=520,
     graph_radius=54,
     graph_thickness=12,
     graph_start_angle=180,
@@ -145,8 +145,8 @@ gauge = {
     caption_fg_colour=0xFFFFFF,    caption_fg_alpha=0.5,
 },
 {
-    name='downspeedf',           arg='wlp58s0',                     max_value=100,
-    x=70,                          y=630,
+    name='downspeedf',           arg='wlan0',                     max_value=100,
+    x=70,                          y=680,
     graph_radius=54,
     graph_thickness=10,
     graph_start_angle=180,
@@ -166,8 +166,8 @@ gauge = {
     caption_fg_colour=0xFFFFFF,    caption_fg_alpha=0.5,
 },
 {
-    name='upspeedf',           arg='wlp58s0',                     max_value=100,
-    x=70,                          y=630,
+    name='upspeedf',           arg='wlan0',                     max_value=100,
+    x=70,                          y=680,
     graph_radius=42,
     graph_thickness=10,
     graph_start_angle=180,
@@ -188,10 +188,10 @@ gauge = {
 },
 {
     name='battery_percent',        arg='BAT1',                     max_value=100,
-    x=220,                         y=630,
+    x=220,                         y=680,
     graph_radius=55,
     graph_thickness=10,
-    graph_start_angle=-135,        
+    graph_start_angle=-135,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.1,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.3,
@@ -209,10 +209,10 @@ gauge = {
 },
 {
     name='battery_percent',        arg='BAT0',                     max_value=100,
-    x=220,                         y=630,
+    x=220,                         y=680,
     graph_radius=40,
     graph_thickness=10,
-    graph_start_angle=45,        graph_end_angle=90, 
+    graph_start_angle=45,        graph_end_angle=90,
     graph_unit_angle=2.7,          graph_unit_thickness=2.7,
     graph_bg_colour=0xffffff,      graph_bg_alpha=0.1,
     graph_fg_colour=0xFFFFFF,      graph_fg_alpha=0.3,
@@ -356,7 +356,7 @@ function go_gauge_rings(display)
         value = tonumber(str)
         draw_gauge_ring(display, data, value)
     end
-    
+
     for i in pairs(gauge) do
         load_gauge_rings(display, gauge[i])
     end
@@ -365,16 +365,16 @@ end
 -------------------------------------------------------------------------------
 --                                                                         MAIN
 function conky_main()
-    if conky_window == nil then 
+    if conky_window == nil then
         return
     end
 
     local cs = cairo_xlib_surface_create(conky_window.display, conky_window.drawable, conky_window.visual, conky_window.width, conky_window.height)
     local display = cairo_create(cs)
-    
+
     local updates = conky_parse('${updates}')
     update_num = tonumber(updates)
-    
+
     if update_num > 5 then
         go_gauge_rings(display)
     end
